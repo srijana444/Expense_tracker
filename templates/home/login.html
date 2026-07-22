@@ -1,100 +1,173 @@
 {% extends 'base.html' %}
+
 {% block body %}
-<div class="bg-image"></div>
 
-<div class="bg-text">
-    <div id="layoutAuthentication">
-        <div id="layoutAuthentication_content">
-            <main>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">
-                                        Expense Tracker by DataFlair - Login
-                                    </h3>
-                                </div>
-                                <div class="card-body">
-                                    <form action="/handlelogin/" method="post">
-                                        {% csrf_token %}
-                                        <div class="form-group">
-                                            <label class="small mb-1" for="loginuname">Username</label>
-                                            <input class="form-control py-4" id="loginuname" name="loginuname" type="text" placeholder="Enter user name" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="small mb-1" for="loginpassword1">Password</label>
-                                            <input class="form-control py-4" id="loginpassword1" name="loginpassword1" type="password" placeholder="Enter password" required/>
-                                        </div>
-                                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <button type="submit" class="btn btn-primary w-100">Login</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <div class="small"><a href="/register">Need an account? Sign up!</a></div>
-                                    <div class="small"><a href="/reset_password">Forgot Password?</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+<div class="login-page">
+
+    <!-- Left Side -->
+    <div class="left-panel">
+
+        <div class="overlay"></div>
+
+        <div class="welcome-section">
+
+            <h1>Expense Tracker</h1>
+
+            <p>
+                Track your income, expenses and savings with a modern,
+                secure and simple expense management system.
+            </p>
+
         </div>
+
     </div>
-</div>
-{% endblock body %}
 
+    <!-- Right Side -->
+    <div class="right-panel">
 
-{% comment %} {% extends 'base.html' %}
-{% block body  %}
-<div class="bg-image"></div>
+        <div class="login-card">
 
-<div class="bg-text">
-    <body class="bg-primary">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Expense Tracker by DataFlair-Login</h3></div>
-                                    <div class="card-body">
-                                        <form action='/handlelogin/' method='post'>
-                                        {% csrf_token %}
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="loginuname">Username</label>
-                                                <input class="form-control py-4" id="loginuname" name="loginuname" type="text" placeholder="Enter user name" required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="loginpassword1">Password</label>
-                                                <input class="form-control py-4" id="loginpassword1" name="loginpassword1" type="password" placeholder="Enter password" required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" reqired />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <div class="btnn">
-                                                <button type="submit" class="btn">Login</button><br>
-																							</div>
-																							<div  class="link">
-																							<a class="small" href="\reset_password">Forgot Password?</a><br>
-                                           
-                                 <div class="card-footer text-center">
-                                        <div class="small"><a href="/register">Need an account? Sign up!</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </main>
+            <div class="login-header">
+
+                <h2>Welcome Back 👋</h2>
+
+                <p>Sign in to continue</p>
+
             </div>
-            </body>
 
-  {% endblock body %} {% endcomment %}
+            <form action="/handlelogin/" method="post">
 
+                {% csrf_token %}
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label for="loginuname">
+
+                        <i class="fas fa-user"></i>
+
+                        Username
+
+                    </label>
+
+                    <input
+                        id="loginuname"
+                        name="loginuname"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter your username"
+                        required>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="loginpassword1">
+
+                        <i class="fas fa-lock"></i>
+
+                        Password
+
+                    </label>
+
+                    <div class="password-box">
+
+                        <input
+                            id="loginpassword1"
+                            name="loginpassword1"
+                            type="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            required>
+
+                        <span
+                            class="toggle-password"
+                            onclick="togglePassword()">
+
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="forgot-link">
+
+                    <a href="/reset_password">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    Sign In
+
+                </button>
+
+            </form>
+
+            <div class="divider">
+
+                <span>OR</span>
+
+            </div>
+
+            <div class="signup-link">
+
+                Don't have an account?
+
+                <a href="/register">
+
+                    Create Account
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function togglePassword(){
+
+    const password=document.getElementById("loginpassword1");
+
+    const eye=document.getElementById("eyeIcon");
+
+    if(password.type==="password"){
+
+        password.type="text";
+
+        eye.classList.remove("fa-eye");
+
+        eye.classList.add("fa-eye-slash");
+
+    }
+    else{
+
+        password.type="password";
+
+        eye.classList.remove("fa-eye-slash");
+
+        eye.classList.add("fa-eye");
+
+    }
+
+}
+
+</script>
+
+{% endblock body %}
