@@ -389,3 +389,10 @@ body{
     }
 
 }
+#fileName{
+    display:block;
+    margin-top:12px;
+    color:#4f46e5;
+    font-size:14px;
+    font-weight:500;
+}
