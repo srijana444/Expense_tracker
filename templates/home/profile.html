@@ -1,121 +1,284 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
-    <style>
-        body {
-            background-color: #f4f6f8;
-        }
-        .profile-container {
-            margin-top: 50px;
-        }
-        .profile-sidebar {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .profile-sidebar img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 3px solid #007bff;
-        }
-        .profile-sidebar h4 {
-            margin-bottom: 5px;
-        }
-        .profile-sidebar p {
-            color: #6c757d;
-            margin-bottom: 10px;
-        }
-        .profile-sidebar .btn {
-            margin-top: 10px;
-            width: 100%;
-        }
-        .profile-content {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-        }
-        .profile-content h5 {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .profile-content .row {
-            margin-bottom: 15px;
-        }
-        .profile-content label {
-            font-weight: 600;
-        }
-        .profile-content p {
-            margin: 0;
-        }
-        @media(max-width: 768px){
-            .profile-sidebar {
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+    <title>My Profile | Expense Tracker</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
 </head>
+
 <body>
-<div class="container profile-container">
-    <div class="row">
-        <!-- Left Sidebar -->
-        <div class="col-md-4">
-            <div class="profile-sidebar">
-                {% if user.userprofile.profile_image %}
-                    <img src="{{ user.userprofile.profile_image.url }}" alt="Profile Image">
-                {% else %}
-                    <img src="{% static 'img/default.jpg' %}" alt="Profile Image">
-                {% endif %}
-                <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-                <p>{{ user.userprofile.profession }}</p>
-                <a href="{% url 'profile_edit' user.id %}" class="btn btn-primary">Edit Profile</a>
-                <a href="{% url 'index' %}" class="btn btn-outline-primary">← Back to Dashboard</a>
+
+<div class="profile-page">
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h2>
+                    <i class="fas fa-user-circle"></i>
+                    My Profile
+                </h2>
+
+                <p>
+                    Manage your personal information and account settings.
+                </p>
+
             </div>
+
+            <a href="{% url 'index' %}" class="dashboard-btn">
+
+                <i class="fas fa-arrow-left"></i>
+
+                Dashboard
+
+            </a>
+
         </div>
 
-        <!-- Right Content -->
-        <div class="col-md-8">
-            <div class="profile-content">
-                <h5>Profile Details</h5>
-                <div class="row">
-                    <div class="col-md-6"><label>User ID:</label></div>
-                    <div class="col-md-6"><p>{{ user.username }}</p></div>
+        <div class="row">
+
+            <!-- LEFT SIDE -->
+
+            <div class="col-lg-4 mb-4">
+
+                <div class="profile-card">
+
+                    <div class="profile-image">
+
+                        {% if user.userprofile.profile_image %}
+
+                        <img src="{{ user.userprofile.profile_image.url }}" alt="Profile Image">
+
+                        {% else %}
+
+                        <img src="{% static 'img/default.jpg' %}" alt="Profile Image">
+
+                        {% endif %}
+
+                    </div>
+
+                    <h3>
+
+                        {{ user.first_name }} {{ user.last_name }}
+
+                    </h3>
+
+                    <span class="profession">
+
+                        {{ user.userprofile.profession }}
+
+                    </span>
+
+                    <div class="divider"></div>
+
+                    <div class="profile-buttons">
+
+                        <a href="{% url 'profile_edit' user.id %}" class="edit-btn">
+
+                            <i class="fas fa-user-edit"></i>
+
+                            Edit Profile
+
+                        </a>
+
+                        <a href="{% url 'index' %}" class="secondary-btn">
+
+                            <i class="fas fa-home"></i>
+
+                            Dashboard
+
+                        </a>
+
+                    </div>
+
                 </div>
-                <div class="row">
-                    <div class="col-md-6"><label>Name:</label></div>
-                    <div class="col-md-6"><p>{{ user.first_name }} {{ user.last_name }}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6"><label>Email:</label></div>
-                    <div class="col-md-6"><p>{{ user.email }}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6"><label>Savings:</label></div>
-                    <div class="col-md-6"><p>{{ user.userprofile.Savings }}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6"><label>Income:</label></div>
-                    <div class="col-md-6"><p>{{ user.userprofile.income }}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6"><label>Profession:</label></div>
-                    <div class="col-md-6"><p>{{ user.userprofile.profession }}</p></div>
-                </div>
+
             </div>
+                        <!-- RIGHT SIDE -->
+
+            <div class="col-lg-8">
+
+                <div class="info-card">
+
+                    <div class="card-title">
+
+                        <i class="fas fa-id-card"></i>
+
+                        Personal Information
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <div class="info-box">
+
+                                <div class="info-icon">
+
+                                    <i class="fas fa-user"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <small>Username</small>
+
+                                    <h6>{{ user.username }}</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <div class="info-box">
+
+                                <div class="info-icon">
+
+                                    <i class="fas fa-envelope"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <small>Email Address</small>
+
+                                    <h6>{{ user.email }}</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <div class="info-box">
+
+                                <div class="info-icon">
+
+                                    <i class="fas fa-user-tag"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <small>Full Name</small>
+
+                                    <h6>{{ user.first_name }} {{ user.last_name }}</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <div class="info-box">
+
+                                <div class="info-icon">
+
+                                    <i class="fas fa-briefcase"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <small>Profession</small>
+
+                                    <h6>{{ user.userprofile.profession }}</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <div class="info-box">
+
+                                <div class="info-icon income">
+
+                                    <i class="fas fa-wallet"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <small>Monthly Income</small>
+
+                                    <h6>£{{ user.userprofile.income }}</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <div class="info-box">
+
+                                <div class="info-icon savings">
+
+                                    <i class="fas fa-piggy-bank"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <small>Savings Goal</small>
+
+                                    <h6>£{{ user.userprofile.Savings }}</h6>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
