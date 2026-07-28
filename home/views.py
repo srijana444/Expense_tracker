@@ -461,35 +461,54 @@ def expense_month(request):
 
 
 def stats(request):
-    if request.session.has_key('is_logged') :
+    if request.session.has_key('is_logged'):
+
         todays_date = datetime.date.today()
-        one_month_ago = todays_date-datetime.timedelta(days=30)
+        one_month_ago = todays_date - datetime.timedelta(days=30)
+
         user_id = request.session["user_id"]
         user1 = User.objects.get(id=user_id)
-        addmoney_info = Addmoney_info.objects.filter(user = user1,Date__gte=one_month_ago)
-        sum = 0 
+
+        addmoney_info = Addmoney_info.objects.filter(
+            user=user1,
+            Date__gte=one_month_ago
+        )
+
+        # Total Expense
+        sum = 0
         for i in addmoney_info:
             if i.add_money == 'Expense':
-                sum=sum+i.quantity
+                sum += i.quantity
         addmoney_info.sum = sum
-        sum1 = 0 
+
+        # Total Income
+        sum1 = 0
         for i in addmoney_info:
             if i.add_money == 'Income':
-                sum1 =sum1+i.quantity
+                sum1 += i.quantity
         addmoney_info.sum1 = sum1
-        x= user1.userprofile.Savings+addmoney_info.sum1 - addmoney_info.sum
-    
+
+        # Savings Calculation
+        x = user1.userprofile.Savings + addmoney_info.sum1 - addmoney_info.sum
+
         y = addmoney_info.sum1 + addmoney_info.sum
         z = addmoney_info.sum1 + addmoney_info.sum
-        if x<0:
-            messages.warning(request,'Your expenses exceeded your savings')
+
+        if x < 0:
+            messages.warning(request, 'Your expenses exceeded your savings')
             x = 0
-        if x>0:
+
+        if x > 0:
             y = 0
+
         addmoney_info.x = abs(x)
         addmoney_info.y = abs(y)
         addmoney_info.z = abs(z)
-        return render(request,'home/stats.html',{'addmoney':addmoney_info})
+
+        # Render the new Monthly Report page
+        return render(request, 'home/monthly.html', {
+            'addmoney': addmoney_info
+        })
 
 # def expense_week(request):
 #     todays_date = datetime.date.today()

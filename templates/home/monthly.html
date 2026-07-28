@@ -1,0 +1,321 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monthly Report | Expense Tracker</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Shared Reports CSS -->
+    <link rel="stylesheet" href="{% static 'reports.css' %}">
+
+</head>
+
+<body>
+
+<div class="report-wrapper">
+
+    <!-- ===========================
+            PAGE HEADER
+    ============================ -->
+
+    <div class="page-header">
+
+        <div class="page-header-left">
+
+            <h1>
+                <i class="fas fa-calendar-alt"></i>
+                Monthly Report
+            </h1>
+
+            <p>
+                Review your monthly financial performance and spending trends.
+            </p>
+
+        </div>
+
+        <a href="{% url 'index' %}" class="primary-btn">
+            <i class="fas fa-arrow-left"></i>
+            Dashboard
+        </a>
+
+    </div>
+
+    <!-- ===========================
+            SUMMARY CARDS
+    ============================ -->
+
+    <div class="stats-grid">
+
+        <!-- Monthly Expense -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon expense-icon">
+                <i class="fas fa-arrow-trend-down"></i>
+            </div>
+
+            <div class="stat-content">
+
+                <span>Monthly Expense</span>
+
+                <h3>£{{ addmoney.sum|default:"0" }}</h3>
+
+                <small class="text-danger">
+                    Total spent this month
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Monthly Income -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon income-icon">
+                <i class="fas fa-arrow-trend-up"></i>
+            </div>
+
+            <div class="stat-content">
+
+                <span>Monthly Income</span>
+
+                <h3>£{{ addmoney.sum1|default:"0" }}</h3>
+
+                <small class="text-success">
+                    Total earned this month
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Monthly Savings -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon saving-icon">
+                <i class="fas fa-piggy-bank"></i>
+            </div>
+
+            <div class="stat-content">
+
+                <span>Monthly Savings</span>
+
+                <h3>£{{ addmoney.z|default:"0" }}</h3>
+
+                <small class="text-primary">
+                    Saved after expenses
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Savings Goal -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon balance-icon">
+                <i class="fas fa-bullseye"></i>
+            </div>
+
+            <div class="stat-content">
+
+                <span>Savings Goal</span>
+
+                <h3>£{{ user.userprofile.Savings|default:"0" }}</h3>
+
+                <small class="text-warning">
+                    Monthly target
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===========================
+        REPORT SECTION STARTS HERE
+    ============================ -->
+
+    <div class="report-grid">
+                <!-- ===========================
+                CHART CARD
+        ============================ -->
+
+        <div class="report-card fade-up">
+
+            <div class="card-header-custom">
+
+                <div>
+
+                    <h3>
+                        <i class="fas fa-chart-line text-primary"></i>
+                        Monthly Expense Analysis
+                    </h3>
+
+                    <p>
+                        Visual representation of your monthly financial activity.
+                    </p>
+
+                </div>
+
+                <span class="badge-primary-custom">
+                    Current Month
+                </span>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="myChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <!-- ===========================
+                SUMMARY PANEL
+        ============================ -->
+
+        <div class="summary-panel fade-up">
+
+            <!-- Monthly Goal -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon summary-saving">
+
+                    <i class="fas fa-bullseye"></i>
+
+                </div>
+
+                <div>
+
+                    <small>Monthly Savings Goal</small>
+
+                    <h4>£{{ user.userprofile.Savings|default:"0" }}</h4>
+
+                </div>
+
+            </div>
+
+            <!-- Expense -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon summary-expense">
+
+                    <i class="fas fa-arrow-down"></i>
+
+                </div>
+
+                <div>
+
+                    <small>Total Expense</small>
+
+                    <h4>£{{ addmoney.sum|default:"0" }}</h4>
+
+                </div>
+
+            </div>
+
+            <!-- Income -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon summary-income">
+
+                    <i class="fas fa-arrow-up"></i>
+
+                </div>
+
+                <div>
+
+                    <small>Total Income</small>
+
+                    <h4>£{{ addmoney.sum1|default:"0" }}</h4>
+
+                </div>
+
+            </div>
+
+            <!-- Savings -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon summary-saving">
+
+                    <i class="fas fa-piggy-bank"></i>
+
+                </div>
+
+                <div>
+
+                    <small>Total Saved</small>
+
+                    <h4>£{{ addmoney.z|default:"0" }}</h4>
+
+                </div>
+
+            </div>
+
+            <!-- Extra Information -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon summary-balance">
+
+                    <i class="fas fa-scale-balanced"></i>
+
+                </div>
+
+                <div>
+
+                    <small>Difference From Goal</small>
+
+                    <h4>£{{ addmoney.y|default:"0" }}</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+        JAVASCRIPT
+=========================== -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Existing Chart Script -->
+<script src="{% static 'javascript/stats.js' %}"></script>
+
+</body>
+
+</html>
