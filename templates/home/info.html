@@ -1,144 +1,386 @@
-{%  load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'addmoney.css' %}">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
-        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="/index">Start Bootstrap</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            {% csrf_token %} 
-                
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/handleLogout">Logout</a>
-                    </div>
-                </li>
-            </ul> 
-        </nav>
-</div>
-       <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/index">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                DASHBOARD
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-													<div>
-													<a class="nav-link" href="/profile">
-														<i class="glyphicon glyphicon-user"></i>
-															  PROFILE</a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-        
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                RECORD
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link " href="/weekly">
-                                       WEEKLY RECORD
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <a class="nav-link " href="/stats" > 
-                                       MONTHLY RECORD
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="dropdown show">
 
-</div>
-                                </nav>
-                            </div>
-                            <div class="messages" id="alert-message">
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="/info">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Yearly Record
-                            </a>
-                            <a class="nav-link" href="/dashboard">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Modern Dasboard
-                            </a>
-                            <a class="nav-link" href="/tables">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                HISTORY
-                            </a>
+<head>
 
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                   <br>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        {{request.user.username}}
-                    </div>
-                </nav>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Yearly Report | Expense Tracker</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Chart JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Shared Reports CSS -->
+
+    <link rel="stylesheet"
+          href="{% static 'reports.css' %}">
+
+</head>
+
+<body>
+
+<div class="report-wrapper">
+
+    <!-- ================= Header ================= -->
+
+    <div class="report-header">
+
+        <div>
+
+            <h1>
+
+                <i class="fas fa-calendar-alt"></i>
+
+                Yearly Report
+
+            </h1>
+
+            <p>
+
+                Monitor your income, expenses and savings throughout the current year.
+
+            </p>
+
+        </div>
+
+        <a href="{% url 'index' %}"
+           class="dashboard-btn">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+        <!-- ================= Statistics Cards ================= -->
+
+    <div class="stats-grid">
+
+        <!-- Expense Card -->
+        <div class="stat-card expense-card">
+
+            <div class="stat-icon expense-icon">
+                <i class="fas fa-arrow-down"></i>
             </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Yearly Expense</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="/index">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Charts</li>
-                        </ol>
-                                    </div>
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-pie mr-1"></i>
-                                       Yearly Expense
-                                    </div>
-                                    <div class="container"style="width:100%;">
-                                    <div class="card-body"><canvas id="myChart" width="400" height="400"></canvas></div>
-                                </div>
-                                </div>
-                                </div>
-                    
-                </main>
-{% comment %} <div class="container"style="width:30%;">
-<canvas id="myChart" width="400" height="400" ></canvas>
-</div> {% endcomment %}
-<script src="{% static 'javascript/info.js'%}"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-      <script type="text/javascript">
-      </script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
-    </body>
-</html>
+
+            <div class="stat-content">
+                <span>Total Expense</span>
+                <h3>£{{ addmoney.sum|default:"0" }}</h3>
+            </div>
+
+        </div>
+
+        <!-- Income Card -->
+        <div class="stat-card income-card">
+
+            <div class="stat-icon income-icon">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+
+            <div class="stat-content">
+                <span>Total Income</span>
+                <h3>£{{ addmoney.sum1|default:"0" }}</h3>
+            </div>
+
+        </div>
+
+        <!-- Savings Card -->
+        <div class="stat-card saving-card">
+
+            <div class="stat-icon saving-icon">
+                <i class="fas fa-piggy-bank"></i>
+            </div>
+
+            <div class="stat-content">
+                <span>Total Savings</span>
+                <h3>£{{ addmoney.z|default:"0" }}</h3>
+            </div>
+
+        </div>
+
+        <!-- Current Year -->
+        <div class="stat-card">
+
+            <div class="stat-icon year-icon">
+                <i class="fas fa-calendar"></i>
+            </div>
+
+            <div class="stat-content">
+                <span>Current Year</span>
+                <h3>2026</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Main Content ================= -->
+
+    <div class="report-grid">
+
+        <!-- Left Side : Chart -->
+
+        <div class="chart-card">
+
+            <div class="card-title">
+
+                <h3>
+
+                    <i class="fas fa-chart-pie"></i>
+
+                    Expense Distribution
+
+                </h3>
+
+                <p>
+                    View your yearly spending by category.
+                </p>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="myChart"></canvas>
+
+            </div>
+
+        </div>
+                <!-- ================= Right Side : Financial Summary ================= -->
+
+        <div class="summary-panel">
+
+            <div class="card-title">
+
+                <h3>
+
+                    <i class="fas fa-wallet"></i>
+
+                    Financial Summary
+
+                </h3>
+
+                <p>
+                    Quick overview of your yearly financial performance.
+                </p>
+
+            </div>
+
+            <!-- Expense -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon expense-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+
+                <div class="summary-content">
+                    <span>Total Expense</span>
+                    <h4>£{{ addmoney.sum|default:"0" }}</h4>
+                </div>
+
+            </div>
+
+            <!-- Income -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon income-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+
+                <div class="summary-content">
+                    <span>Total Income</span>
+                    <h4>£{{ addmoney.sum1|default:"0" }}</h4>
+                </div>
+
+            </div>
+
+            <!-- Savings -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon saving-icon">
+                    <i class="fas fa-piggy-bank"></i>
+                </div>
+
+                <div class="summary-content">
+                    <span>Total Savings</span>
+                    <h4>£{{ addmoney.z|default:"0" }}</h4>
+                </div>
+
+            </div>
+
+            <!-- Current Year -->
+
+            <div class="summary-item">
+
+                <div class="summary-icon year-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+
+                <div class="summary-content">
+                    <span>Report Year</span>
+                    <h4>2026</h4>
+                </div>
+
+            </div>
+
+            <!-- Divider -->
+
+            <hr>
+
+            <!-- Financial Status -->
+
+            <div class="status-card">
+
+                <h5>
+
+                    <i class="fas fa-chart-line"></i>
+
+                    Financial Status
+
+                </h5>
+
+                <p>
+
+                    Keep tracking your yearly expenses and income to
+                    maintain a healthy financial balance throughout the year.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Bottom Section ================= -->
+
+    <div class="analytics-card">
+
+        <div class="card-title">
+
+            <h3>
+
+                <i class="fas fa-lightbulb"></i>
+
+                Yearly Insights
+
+            </h3>
+
+            <p>
+                A quick overview of your financial journey this year.
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="insight-box">
+
+                    <i class="fas fa-wallet"></i>
+
+                    <h5>Budget</h5>
+
+                    <p>
+                        Review your yearly spending habits and plan your future budget wisely.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="insight-box">
+
+                    <i class="fas fa-chart-line"></i>
+
+                    <h5>Growth</h5>
+
+                    <p>
+                        Compare your income and expenses to evaluate financial growth.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="insight-box">
+
+                    <i class="fas fa-bullseye"></i>
+
+                    <h5>Goal</h5>
+
+                    <p>
+                        Continue saving regularly to achieve your yearly financial goals.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- ================= Footer ================= -->
+
+    <div class="report-footer">
+
+        <div>
+
+            <i class="fas fa-calendar-check"></i>
+
+            Generated automatically from your yearly transactions.
+
+        </div>
+
+        <div>
+
+            <i class="fas fa-shield-alt"></i>
+
+            Expense Tracker © 2026
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= Bootstrap ================= -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ================= Chart JS ================= -->
+
+<script src="{% static 'javascript/info.js' %}"></script>
+
 </body>
+
 </html>
