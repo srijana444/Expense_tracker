@@ -40,7 +40,7 @@ class UserProfile(models.Model):
     Savings = models.FloatField(default=0)
     profile_image = models.ImageField(upload_to='profile_pics/', default='default.jpg')
 
-    def _str_(self):
+    def __str__(self):
         return self.user.username
 
 
