@@ -19,6 +19,8 @@ from django.core.paginator import Paginator
 from .models import Addmoney_info
 from datetime import date, timedelta
 
+
+
 # Create your views here.
 def home(request):
     if request.session.has_key('is_logged'):

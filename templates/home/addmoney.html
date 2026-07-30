@@ -169,44 +169,52 @@
 
                 <!-- Category -->
 
-                <div class="form-group">
+                <!-- Category -->
 
-                    <label>
-                        <i class="fas fa-layer-group"></i>
-                        Category
-                    </label>
+<div class="form-group">
 
-                    <select name="Category" required>
+    <label>
+        <i class="fas fa-layer-group"></i>
+        Category
+    </label>
 
-                        <option value="">Choose Category</option>
+    <!-- Expense Categories -->
+    <select id="expenseCategory" class="category-select">
 
-                        <option value="Food">
-                            🍔 Food
-                        </option>
+        <option value="">Choose Expense Category</option>
 
-                        <option value="Travel">
-                            ✈️ Travel
-                        </option>
+        <option value="Food">🍔 Food</option>
+        <option value="Travel">✈️ Travel</option>
+        <option value="Shopping">🛍 Shopping</option>
+        <option value="Rent">🏠 Rent</option>
+        <option value="Bills">💡 Bills</option>
+        <option value="Entertainment">🎬 Entertainment</option>
+        <option value="Healthcare">🏥 Healthcare</option>
+        <option value="Education">📚 Education</option>
+        <option value="Others">📦 Others</option>
 
-                        <option value="Shopping">
-                            🛍 Shopping
-                        </option>
+    </select>
 
-                        <option value="Necessities">
-                            🏠 Necessities
-                        </option>
+    <!-- Income Categories -->
+    <select id="incomeCategory" class="category-select" style="display:none;">
 
-                        <option value="Entertainment">
-                            🎬 Entertainment
-                        </option>
+        <option value="">Choose Income Source</option>
 
-                        <option value="Others">
-                            📦 Others
-                        </option>
+        <option value="Salary">💼 Salary</option>
+        <option value="Business">🏢 Business</option>
+        <option value="Freelancing">💻 Freelancing</option>
+        <option value="Investment">📈 Investment</option>
+        <option value="Bonus">💸 Bonus</option>
+        <option value="Gift">🎁 Gift</option>
+        <option value="Interest">🏦 Interest</option>
+        <option value="Others">📦 Others</option>
 
-                    </select>
+    </select>
 
-                </div>
+    <!-- Hidden field sent to Django -->
+    <input type="hidden" name="Category" id="Category">
+
+</div>
 
                 <!-- Buttons -->
 
@@ -230,6 +238,60 @@
     </div>
 
 </div>
+<script>
+
+const expenseRadio = document.querySelector('input[value="Expense"]');
+const incomeRadio = document.querySelector('input[value="Income"]');
+
+const expenseSelect = document.getElementById("expenseCategory");
+const incomeSelect = document.getElementById("incomeCategory");
+const finalCategory = document.getElementById("Category");
+
+function updateCategory() {
+
+    if (expenseRadio.checked) {
+
+        expenseSelect.style.display = "block";
+        incomeSelect.style.display = "none";
+
+        expenseSelect.required = true;
+        incomeSelect.required = false;
+
+        incomeSelect.value = "";
+
+        finalCategory.value = expenseSelect.value;
+
+    } else {
+
+        expenseSelect.style.display = "none";
+        incomeSelect.style.display = "block";
+
+        expenseSelect.required = false;
+        incomeSelect.required = true;
+
+        expenseSelect.value = "";
+
+        finalCategory.value = incomeSelect.value;
+
+    }
+
+}
+
+expenseRadio.addEventListener("change", updateCategory);
+incomeRadio.addEventListener("change", updateCategory);
+
+expenseSelect.addEventListener("change", function () {
+    finalCategory.value = this.value;
+});
+
+incomeSelect.addEventListener("change", function () {
+    finalCategory.value = this.value;
+});
+
+// Initialize on page load
+updateCategory();
+
+</script>
 
 <!-- Bootstrap JS -->
 
