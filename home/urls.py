@@ -34,9 +34,6 @@ urlpatterns = [
     path('<int:id>/profile_update/',views.profile_update,name="profile_update"),
     path('info/',views.info,name="info"),
     path('info_year/',views.info_year,name="info_year"),
-    path('', views.handleloginpage, name='loginpage'),
-    path('handlelogin/', views.handlelogin, name='handlelogin'),
-    path('index/', views.index, name='index'),  # or your dashboard page
     path('history/export/', views.export_history_csv, name='export_history_csv'),
     path('dashboard/', views.dashboard, name='dashboard'),
 ]
