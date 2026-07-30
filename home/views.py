@@ -39,17 +39,15 @@ def index(request):
         total_expense = addmoney_info.filter(add_money='Expense', Date__gte=one_month_ago).aggregate(Sum('quantity'))['quantity__sum'] or 0
         total_income = addmoney_info.filter(add_money='Income', Date__gte=one_month_ago).aggregate(Sum('quantity'))['quantity__sum'] or 0
         current_income = total_expense+total_income
+        total_expense = abs(total_expense)
         context = {
-            # 'add_info' : addmoney_info,
            'page_obj' : page_obj,
            'total_expense': total_expense,
            'total_income' : total_income,
            'current_income':current_income,
         }
-    #if request.session.has_key('is_logged'):
         return render(request,'home/index.html',context)
     return redirect('home')
-    #return HttpResponse('This is blog')
 def expense(request):
     if request.session.has_key('is_logged'):
         todays_date = datetime.date.today()
