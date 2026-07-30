@@ -1,0 +1,13 @@
+# Database
+db.sqlite3
+
+# Media uploads (user photos)
+media/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Django
+*.log
