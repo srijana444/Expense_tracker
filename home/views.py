@@ -128,7 +128,7 @@ def profile_edit(request,id):
         # user_id = request.session["user_id"]
         # user1 = User.objects.get(id=user_id)
         return render(request,'home/profile_edit.html',{'add':add})
-    return redirect("/home")
+    return redirect('home')
 
 # def profile_update(request,id):
 #     if request.session.has_key('is_logged'):
@@ -143,7 +143,7 @@ def profile_edit(request,id):
 #             user.userprofile.save()
 #             user.save()
 #             return redirect("/profile")
-#     return redirect("/home")   
+#     return redirect('home')   
 def profile_update(request, id):
     if request.session.has_key('is_logged'):
         if request.method == "POST":
@@ -162,7 +162,7 @@ def profile_update(request, id):
             user.userprofile.save()
             user.save()
             return redirect("/profile")
-    return redirect("/home")
+    return redirect('home')
 def handleSignup(request):
     if request.method =='POST':
             # get the post parameters
@@ -368,8 +368,8 @@ def handleLogout(request):
 #             add.Date = request.POST["Date"]
 #             add.Category = request.POST["Category"]
 #             add .save()
-#             return redirect("/index")
-#     return redirect("/home")   
+#             returnredirect('index')
+#     return redirect('home')
 
 def addmoney_submission(request):
     if request.session.has_key('is_logged'):
@@ -414,8 +414,8 @@ def addmoney_update(request,id):
             add.Category = request.POST["Category"]
             add.save()
             messages.success(request, "Transaction updated successfully!")
-            return redirect("/index")
-    return redirect("/home")     
+            return redirect('index')
+    return redirect('home') 
 
 def expense_edit(request,id):
     if request.session.has_key('is_logged'):
@@ -423,21 +423,22 @@ def expense_edit(request,id):
         user_id = request.session["user_id"]
         user1 = User.objects.get(id=user_id)
         return render(request,'home/expense_edit.html',{'addmoney_info':addmoney_info})
-    return redirect("/home")  
+    return redirect('home') 
 
 # def expense_delete(request,id):
 #     if request.session.has_key('is_logged'):
 #         addmoney_info = Addmoney_info.objects.get(id=id)
 #         addmoney_info.delete()
-#         return redirect("/index")
-#     return redirect("/home")  
-def expense_delete(request,id):
+#         return redirect('index')
+#     return redirect('home') 
+def expense_delete(request, id):
     if request.session.has_key('is_logged'):
-        addmoney_info = Addmoney_info.objects.get(id=id)
-        addmoney_info.delete()
-        messages.success(request, "Transaction deleted successfully!")
-        return redirect("/index")
-    return redirect("/home")
+        if request.method == "POST":
+            addmoney_info = Addmoney_info.objects.get(id=id)
+            addmoney_info.delete()
+            messages.success(request, "Transaction deleted successfully!")
+        return redirect('index')
+    return redirect('home')
 
 def expense_month(request):
     todays_date = datetime.date.today()
