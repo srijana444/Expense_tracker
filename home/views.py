@@ -94,10 +94,18 @@ def search(request):
     if request.session.has_key('is_logged'):
         user_id = request.session["user_id"]
         user = User.objects.get(id=user_id)
-        fromdate = request.GET['fromdate']
-        todate = request.GET['todate']
-        addmoney = Addmoney_info.objects.filter(user=user, Date__range=[fromdate,todate]).order_by('-Date')
-        return render(request,'home/tables.html',{'addmoney':addmoney})
+        fromdate = request.GET.get('fromdate')
+        todate = request.GET.get('todate')
+
+        if fromdate and todate:
+            addmoney = Addmoney_info.objects.filter(
+                user=user, Date__range=[fromdate, todate]
+            ).order_by('-Date')
+        else:
+            messages.error(request, "Please select both a from-date and a to-date.")
+            addmoney = Addmoney_info.objects.filter(user=user).order_by('-Date')
+
+        return render(request, 'home/tables.html', {'addmoney': addmoney})
     return redirect('home')
 def tables(request):
     if request.session.has_key('is_logged'):
