@@ -669,9 +669,12 @@ def export_history_csv(request):
 
     return response    
 
-
 def dashboard(request):
-    user = request.user
+    if not request.session.has_key('is_logged'):
+        return redirect('home')
+
+    user_id = request.session["user_id"]
+    user = User.objects.get(id=user_id)
     transactions = Addmoney_info.objects.filter(user=user).order_by('-Date')
 
     # Pagination
