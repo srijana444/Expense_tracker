@@ -1305,3 +1305,197 @@ body {
 /*==================================================
             END OF REPORTS CSS
 ===================================================*/
+/*==================================================
+            WEEKLY SUMMARY CARD
+==================================================*/
+
+.summary-card{
+    background: linear-gradient(145deg,#ffffff,#f7faff);
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    border:1px solid #e8eefc;
+    transition:.35s;
+}
+
+.summary-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(37,99,235,.15);
+}
+
+/*======================================
+            CARD TITLE
+======================================*/
+
+.summary-card .card-title{
+    margin-bottom:25px;
+}
+
+.summary-card .card-title h4{
+    font-size:24px;
+    font-weight:700;
+    color:#1e3a8a;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.summary-card .card-title h4 i{
+    color:#2563eb;
+}
+
+.summary-card .card-title p{
+    color:#64748b;
+    margin-top:8px;
+    font-size:14px;
+}
+
+/*======================================
+            SUMMARY LIST
+======================================*/
+
+.summary-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+/*======================================
+            SUMMARY ITEM
+======================================*/
+
+.summary-item{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:18px;
+    background:#fff;
+    border-radius:18px;
+    border:1px solid #edf2ff;
+    transition:.35s;
+}
+
+.summary-item:hover{
+    transform:translateX(8px);
+    box-shadow:0 12px 24px rgba(0,0,0,.08);
+}
+
+/*======================================
+            ICONS
+======================================*/
+
+.summary-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:24px;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+/* Expense */
+
+.expense-bg{
+    background:linear-gradient(135deg,#ff6b6b,#ee5253);
+}
+
+/* Income */
+
+.income-bg{
+    background:linear-gradient(135deg,#2ed573,#20bf6b);
+}
+
+/* Savings */
+
+.saving-bg{
+    background:linear-gradient(135deg,#4facfe,#00c6fb);
+}
+
+/*======================================
+            TEXT
+======================================*/
+
+.summary-item small{
+    display:block;
+    color:#6b7280;
+    font-size:13px;
+    font-weight:500;
+    margin-bottom:4px;
+}
+
+.summary-item h5{
+    margin:0;
+    font-size:24px;
+    font-weight:700;
+    color:#111827;
+}
+
+/*======================================
+            DIVIDER
+======================================*/
+
+.summary-card hr{
+    border:none;
+    height:1px;
+    background:#e5e7eb;
+    margin:28px 0;
+}
+
+/*======================================
+            INSIGHT BOX
+======================================*/
+
+.tips-box{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0 12px 25px rgba(37,99,235,.25);
+}
+
+.tips-box h6{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.tips-box h6 i{
+    color:#facc15;
+}
+
+.tips-box p{
+    margin:0;
+    line-height:1.7;
+    font-size:14px;
+    opacity:.95;
+}
+
+/*======================================
+            RESPONSIVE
+======================================*/
+
+.tips-box{
+    margin-top:20px;
+    padding:18px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:white;
+}
+
+.tips-box h6{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.tips-box p{
+    margin:0;
+    opacity:.95;
+    line-height:1.7;
+}
