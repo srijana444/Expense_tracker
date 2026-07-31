@@ -1,273 +1,154 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Transaction | Expense Tracker</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Edit Transaction | Expense Tracker</title>
-    <link rel="stylesheet" href="{% static 'expense_edit.css' %}">
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'expense_edit.css' %}">
-
+<link rel="stylesheet" href="{% static 'expense_edit.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
 <div class="transaction-page">
 
-    <!-- Left Panel -->
-
-    <div class="left-panel">
-
-        <div class="overlay"></div>
-
-        <div class="left-content">
-
-            <h1>
-                <i class="fas fa-pen-to-square"></i>
-                Edit Transaction
-            </h1>
-
-            <p>
-                Update your income or expense records anytime.
-                Keep your financial history accurate and organized.
-            </p>
-
-            <div class="feature-list">
-
-                <div class="feature">
-                    <i class="fas fa-wallet"></i>
-                    <span>Manage Transactions</span>
-                </div>
-
-                <div class="feature">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Track Spending</span>
-                </div>
-
-                <div class="feature">
-                    <i class="fas fa-piggy-bank"></i>
-                    <span>Improve Savings</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Right Panel -->
-
-    <div class="right-panel">
-
-        <div class="transaction-card">
-
-            <div class="top-bar">
-
-                <a href="{% url 'index' %}" class="back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    Dashboard
-                </a>
-
-            </div>
-
-            <h2>Edit Transaction</h2>
-
-            <p class="subtitle">
-                Update the transaction details below.
-            </p>
-
-            <form method="POST"
-                  action="{% url 'addmoney_update' addmoney_info.id %}">
-
-                {% csrf_token %}
-
-                <!-- Transaction Type -->
-
-                <label class="section-label">
-                    Transaction Type
-                </label>
-
-                <div class="radio-group">
-
-                    <label class="radio-card">
-
-                        <input
-                            type="radio"
-                            name="add_money"
-                            value="Expense"
-                            {% if addmoney_info.add_money == "Expense" %}
-                            checked
-                            {% endif %}>
-
-                        <span>
-                            <i class="fas fa-arrow-trend-down"></i>
-                            Expense
-                        </span>
-
-                    </label>
-
-                    <label class="radio-card income">
-
-                        <input
-                            type="radio"
-                            name="add_money"
-                            value="Income"
-                            {% if addmoney_info.add_money == "Income" %}
-                            checked
-                            {% endif %}>
-
-                        <span>
-                            <i class="fas fa-arrow-trend-up"></i>
-                            Income
-                        </span>
-
-                    </label>
-
-                </div>
-
-                <!-- Amount -->
-
-                <div class="form-group">
-
-                    <label>
-                        <i class="fas fa-indian-rupee-sign"></i>
-                        Amount (Rs.)
-                    </label>
-
-                    <div class="input-group">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                Rs.
-                            </span>
-                        </div>
-
-                        <input
-                            type="number"
-                            class="form-control"
-                            name="quantity"
-                            value="{{ addmoney_info.quantity }}"
-                            min="1"
-                            required>
-
-                    </div>
-
-                </div>
-
-                <!-- Date -->
-
-                <div class="form-group">
-
-                    <label>
-                        <i class="fas fa-calendar-days"></i>
-                        Transaction Date
-                    </label>
-
-                    <input
-                        type="date"
-                        class="form-control"
-                        name="Date"
-                        value="{{ addmoney_info.Date|date:'Y-m-d' }}"
-                        required>
-
-                </div>
-                                <!-- Category -->
-
-                <div class="form-group">
-
-                    <label>
-                        <i class="fas fa-layer-group"></i>
-                        Category
-                    </label>
-
-                    <select
-                        class="form-control"
-                        name="Category"
-                        required>
-
-                        <option value="Food"
-                            {% if addmoney_info.Category == "Food" %}selected{% endif %}>
-                            🍔 Food
-                        </option>
-
-                        <option value="Travel"
-                            {% if addmoney_info.Category == "Travel" %}selected{% endif %}>
-                            ✈️ Travel
-                        </option>
-
-                        <option value="Shopping"
-                            {% if addmoney_info.Category == "Shopping" %}selected{% endif %}>
-                            🛍 Shopping
-                        </option>
-
-                        <option value="Necessities"
-                            {% if addmoney_info.Category == "Necessities" %}selected{% endif %}>
-                            🏠 Necessities
-                        </option>
-
-                        <option value="Entertainment"
-                            {% if addmoney_info.Category == "Entertainment" %}selected{% endif %}>
-                            🎬 Entertainment
-                        </option>
-
-                        <option value="Others"
-                            {% if addmoney_info.Category == "Others" %}selected{% endif %}>
-                            📦 Others
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <!-- Buttons -->
-
-                <div class="button-group">
-
-                    <a href="{% url 'index' %}" class="cancel-btn">
-                        <i class="fas fa-arrow-left"></i>
-                        Back
-                    </a>
-
-                    <button
-                        type="submit"
-                        class="submit-btn">
-
-                        <i class="fas fa-floppy-disk"></i>
-                        Save Changes
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
+<div class="left-panel">
+<div class="overlay"></div>
+
+<div class="left-content">
+<h1><i class="fas fa-pen-to-square"></i> Edit Transaction</h1>
+
+<p>
+Update your income or expense records anytime.
+Keep your financial history accurate and organized.
+</p>
+
+<div class="feature-list">
+<div class="feature"><i class="fas fa-wallet"></i><span>Manage Transactions</span></div>
+<div class="feature"><i class="fas fa-chart-line"></i><span>Track Spending</span></div>
+<div class="feature"><i class="fas fa-piggy-bank"></i><span>Improve Savings</span></div>
+</div>
+</div>
+</div>
+
+<div class="right-panel">
+
+<div class="transaction-card">
+
+<div class="top-bar">
+<a href="{% url 'index' %}" class="back-btn">
+<i class="fas fa-arrow-left"></i> Dashboard
+</a>
+</div>
+
+<h2>Edit Transaction</h2>
+<p class="subtitle">Update the transaction details below.</p>
+
+<form method="POST" action="{% url 'addmoney_update' addmoney_info.id %}">
+{% csrf_token %}
+
+<label class="section-label">Transaction Type</label>
+
+<div class="radio-group">
+
+<label class="radio-card">
+<input type="radio" name="add_money" value="Expense"
+{% if addmoney_info.add_money == "Expense" %}checked{% endif %}>
+<span><i class="fas fa-arrow-trend-down"></i> Expense</span>
+</label>
+
+<label class="radio-card income">
+<input type="radio" name="add_money" value="Income"
+{% if addmoney_info.add_money == "Income" %}checked{% endif %}>
+<span><i class="fas fa-arrow-trend-up"></i> Income</span>
+</label>
 
 </div>
 
-<!-- Bootstrap -->
+<div class="form-group">
+<label><i class="fas fa-indian-rupee-sign"></i> Amount (Rs.)</label>
+<div class="input-group">
+<div class="input-group-prepend">
+<span class="input-group-text">Rs.</span>
+</div>
+<input type="number" class="form-control" name="quantity"
+value="{{ addmoney_info.quantity }}" min="1" required>
+</div>
+</div>
+
+<div class="form-group">
+<label><i class="fas fa-calendar-days"></i> Transaction Date</label>
+<input type="date" class="form-control"
+name="Date"
+value="{{ addmoney_info.Date|date:'Y-m-d' }}"
+required>
+</div>
+
+<div class="form-group">
+<label><i class="fas fa-layer-group"></i> Category</label>
+<select class="form-control" id="category" name="Category" required></select>
+</div>
+
+<div class="form-group">
+<label><i class="fas fa-note-sticky"></i> Remark</label>
+<textarea class="form-control"
+name="Remark"
+rows="4"
+placeholder="Enter remark (optional)...">{{ addmoney_info.Remark }}</textarea>
+</div>
+
+<div class="button-group">
+<a href="{% url 'index' %}" class="cancel-btn">
+<i class="fas fa-arrow-left"></i> Back
+</a>
+
+<button type="submit" class="submit-btn">
+<i class="fas fa-floppy-disk"></i> Save Changes
+</button>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+
+<script>
+const expense=["Food","Travel","Shopping","Necessities","Entertainment","Others"];
+const income=["Salary","Business","Freelancing","Investment","Bonus","Gift","Interest","Others"];
+const emoji={
+Food:"🍔",Travel:"✈️",Shopping:"🛍",Necessities:"🏠",Entertainment:"🎬",Others:"📦",
+Salary:"💼",Business:"🏢",Freelancing:"💻",Investment:"📈",Bonus:"💸",Gift:"🎁",Interest:"🏦"
+};
+const current="{{ addmoney_info.Category|escapejs }}";
+const select=document.getElementById("category");
+
+function load(type){
+select.innerHTML="";
+(type==="Income"?income:expense).forEach(c=>{
+let o=document.createElement("option");
+o.value=c;
+o.textContent=(emoji[c]?emoji[c]+" ":"")+c;
+if(c===current)o.selected=true;
+select.appendChild(o);
+});
+}
+
+const exp=document.querySelector('input[value="Expense"]');
+const inc=document.querySelector('input[value="Income"]');
+
+exp.addEventListener("change",()=>load("Expense"));
+inc.addEventListener("change",()=>load("Income"));
+
+if(inc.checked){load("Income");}else{load("Expense");}
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
