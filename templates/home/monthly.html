@@ -75,7 +75,7 @@
 
                 <span>Monthly Expense</span>
 
-                <h3>£{{ addmoney.sum|default:"0" }}</h3>
+                <h3>RS{{ addmoney.sum|default:"0" }}</h3>
 
                 <small class="text-danger">
                     Total spent this month
@@ -97,7 +97,7 @@
 
                 <span>Monthly Income</span>
 
-                <h3>£{{ addmoney.sum1|default:"0" }}</h3>
+                <h3>RS{{ addmoney.sum1|default:"0" }}</h3>
 
                 <small class="text-success">
                     Total earned this month
@@ -119,7 +119,7 @@
 
                 <span>Monthly Savings</span>
 
-                <h3>£{{ addmoney.z|default:"0" }}</h3>
+                <h3>RS{{ addmoney.z|default:"0" }}</h3>
 
                 <small class="text-primary">
                     Saved after expenses
@@ -141,7 +141,7 @@
 
                 <span>Savings Goal</span>
 
-                <h3>£{{ user.userprofile.Savings|default:"0" }}</h3>
+                <h3>RS{{ user.userprofile.Savings|default:"0" }}</h3>
 
                 <small class="text-warning">
                     Monthly target
@@ -213,7 +213,7 @@
 
                     <small>Monthly Savings Goal</small>
 
-                    <h4>£{{ user.userprofile.Savings|default:"0" }}</h4>
+                    <h4>RS{{ user.userprofile.Savings|default:"0" }}</h4>
 
                 </div>
 
@@ -233,7 +233,7 @@
 
                     <small>Total Expense</small>
 
-                    <h4>£{{ addmoney.sum|default:"0" }}</h4>
+                    <h4>RS{{ addmoney.sum|default:"0" }}</h4>
 
                 </div>
 
@@ -253,7 +253,7 @@
 
                     <small>Total Income</small>
 
-                    <h4>£{{ addmoney.sum1|default:"0" }}</h4>
+                    <h4>RS{{ addmoney.sum1|default:"0" }}</h4>
 
                 </div>
 
@@ -273,7 +273,7 @@
 
                     <small>Total Saved</small>
 
-                    <h4>£{{ addmoney.z|default:"0" }}</h4>
+                    <h4>RS{{ addmoney.z|default:"0" }}</h4>
 
                 </div>
 
@@ -293,7 +293,7 @@
 
                     <small>Difference From Goal</small>
 
-                    <h4>£{{ addmoney.y|default:"0" }}</h4>
+                    <h4>RS{{ addmoney.y|default:"0" }}</h4>
 
                 </div>
 
