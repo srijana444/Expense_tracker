@@ -515,9 +515,12 @@ def stats(request):
         addmoney_info.z = abs(z)
 
         # Render the new Monthly Report page
+       # Render the new Monthly Report page
         return render(request, 'home/monthly.html', {
             'addmoney': addmoney_info
         })
+
+    return redirect('home')
 
 # def expense_week(request):
 #     todays_date = datetime.date.today()
