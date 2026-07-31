@@ -1,72 +1,273 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-				<link href="css/addmoney.css" rel="stylesheet" />
 
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title><h1>My Wallet</h1></title>
-        <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'addmoney.css' %}">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="bg-primary">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container2">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">My Wallet</h3></div>
-                                    <form method="post" action="{% url 'addmoney_update' addmoney_info.id %}">
-                                    {% csrf_token %}
-                  Edit <br>
-                  <div class="form-check">
-                  <input class="form-check-input" type="radio" name="add_money" id="add_money" value="{{addmoney_info.add_money}}" checked required>
-                  <label class="form-check-label" for="add_money"> Expense 
-                  </div>
-                  </label>
-                  <div class="form-check">
-                  <input class="form-check-input" type="radio" name="add_money" id="add_money" value="{{addmoney_info.add_money}}" checked required>
-                  <label class="form-check-label" for="add_money">Income</label>
-                  </div>
-																	<!--<form class="r1" method="post" action="\addmoney_submission\">
-                                  {% csrf_token %}
-	What you want to add?<br>
-  <input type="radio" name="add_money" value="Expense">
-  <label for="Expense">Expense</label>
-  <input type="radio" name="add_money" value="Income">
-  <label for="Income">Income</label><br>-->
-  <label for="quantity">Amount:</label><br>
-  <input type="number" name="quantity" value="{{addmoney_info.quantity}}"required><br>
-  <br>
-  <label>
-    Expense Date:
-    <input type="date" name="Date" value="{{addmoney_info.Date}}">
-  </label><br>
-	<div class="f1">
-		Select category-<br>
-	<select class="Category" name="Category" value="{{addmoney_info.Category}}" required><br>
-  <option value="Food">Food</option>
-  <option value="Travel">Travel</option>
-  <option value="Shopping">shopping</option>
-	<option value="Necessities">Necessities</option>
-	<option value="Entertainment">Entertainment</option>
-	<option value="Others">Others</option>
-		
-</select><br>
-																	</div>
-  <button type="submit" class="b2"> Save </button>
-	<!--<input type="button" class="b2"  onclick="location.href='/addmoney'" value="submit!">-->
+<head>
 
-																	</div>
-											
-													</div>
-											</div></div></main></div></div></form>
-    </body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Transaction | Expense Tracker</title>
+    <link rel="stylesheet" href="{% static 'expense_edit.css' %}">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'expense_edit.css' %}">
+
+</head>
+
+<body>
+
+<div class="transaction-page">
+
+    <!-- Left Panel -->
+
+    <div class="left-panel">
+
+        <div class="overlay"></div>
+
+        <div class="left-content">
+
+            <h1>
+                <i class="fas fa-pen-to-square"></i>
+                Edit Transaction
+            </h1>
+
+            <p>
+                Update your income or expense records anytime.
+                Keep your financial history accurate and organized.
+            </p>
+
+            <div class="feature-list">
+
+                <div class="feature">
+                    <i class="fas fa-wallet"></i>
+                    <span>Manage Transactions</span>
+                </div>
+
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Track Spending</span>
+                </div>
+
+                <div class="feature">
+                    <i class="fas fa-piggy-bank"></i>
+                    <span>Improve Savings</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Panel -->
+
+    <div class="right-panel">
+
+        <div class="transaction-card">
+
+            <div class="top-bar">
+
+                <a href="{% url 'index' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Dashboard
+                </a>
+
+            </div>
+
+            <h2>Edit Transaction</h2>
+
+            <p class="subtitle">
+                Update the transaction details below.
+            </p>
+
+            <form method="POST"
+                  action="{% url 'addmoney_update' addmoney_info.id %}">
+
+                {% csrf_token %}
+
+                <!-- Transaction Type -->
+
+                <label class="section-label">
+                    Transaction Type
+                </label>
+
+                <div class="radio-group">
+
+                    <label class="radio-card">
+
+                        <input
+                            type="radio"
+                            name="add_money"
+                            value="Expense"
+                            {% if addmoney_info.add_money == "Expense" %}
+                            checked
+                            {% endif %}>
+
+                        <span>
+                            <i class="fas fa-arrow-trend-down"></i>
+                            Expense
+                        </span>
+
+                    </label>
+
+                    <label class="radio-card income">
+
+                        <input
+                            type="radio"
+                            name="add_money"
+                            value="Income"
+                            {% if addmoney_info.add_money == "Income" %}
+                            checked
+                            {% endif %}>
+
+                        <span>
+                            <i class="fas fa-arrow-trend-up"></i>
+                            Income
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <!-- Amount -->
+
+                <div class="form-group">
+
+                    <label>
+                        <i class="fas fa-indian-rupee-sign"></i>
+                        Amount (Rs.)
+                    </label>
+
+                    <div class="input-group">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Rs.
+                            </span>
+                        </div>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="quantity"
+                            value="{{ addmoney_info.quantity }}"
+                            min="1"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <!-- Date -->
+
+                <div class="form-group">
+
+                    <label>
+                        <i class="fas fa-calendar-days"></i>
+                        Transaction Date
+                    </label>
+
+                    <input
+                        type="date"
+                        class="form-control"
+                        name="Date"
+                        value="{{ addmoney_info.Date|date:'Y-m-d' }}"
+                        required>
+
+                </div>
+                                <!-- Category -->
+
+                <div class="form-group">
+
+                    <label>
+                        <i class="fas fa-layer-group"></i>
+                        Category
+                    </label>
+
+                    <select
+                        class="form-control"
+                        name="Category"
+                        required>
+
+                        <option value="Food"
+                            {% if addmoney_info.Category == "Food" %}selected{% endif %}>
+                            🍔 Food
+                        </option>
+
+                        <option value="Travel"
+                            {% if addmoney_info.Category == "Travel" %}selected{% endif %}>
+                            ✈️ Travel
+                        </option>
+
+                        <option value="Shopping"
+                            {% if addmoney_info.Category == "Shopping" %}selected{% endif %}>
+                            🛍 Shopping
+                        </option>
+
+                        <option value="Necessities"
+                            {% if addmoney_info.Category == "Necessities" %}selected{% endif %}>
+                            🏠 Necessities
+                        </option>
+
+                        <option value="Entertainment"
+                            {% if addmoney_info.Category == "Entertainment" %}selected{% endif %}>
+                            🎬 Entertainment
+                        </option>
+
+                        <option value="Others"
+                            {% if addmoney_info.Category == "Others" %}selected{% endif %}>
+                            📦 Others
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Buttons -->
+
+                <div class="button-group">
+
+                    <a href="{% url 'index' %}" class="cancel-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+
+                        <i class="fas fa-floppy-disk"></i>
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
 </html>
