@@ -89,7 +89,9 @@ def password(request):
     return render(request,'home/password.html')
 
 def charts(request):
-    return render(request,'home/charts.html')
+    if request.session.has_key('is_logged'):
+        return render(request,'home/charts.html')
+    return redirect('home')
 def search(request):
     if request.session.has_key('is_logged'):
         user_id = request.session["user_id"]
@@ -117,7 +119,9 @@ def tables(request):
         return render(request,'home/tables.html',{'addmoney':addmoney})
     return redirect('home')
 def addmoney(request):
-    return render(request,'home/addmoney.html')
+    if request.session.has_key('is_logged'):
+        return render(request,'home/addmoney.html')
+    return redirect('home')
 
 def profile(request):
     if request.session.has_key('is_logged'):
