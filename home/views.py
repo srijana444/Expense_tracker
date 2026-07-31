@@ -401,8 +401,8 @@ def addmoney_submission(request):
             )
             add.save()
             messages.success(request, "Transaction added successfully!")
-            return redirect('/index')
-    return redirect('/home')
+            return redirect('index')
+    return redirect('home')
     
 # --- (Rest of your views file) ---
 
