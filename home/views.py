@@ -122,7 +122,7 @@ def addmoney(request):
 def profile(request):
     if request.session.has_key('is_logged'):
         return render(request,'home/profile.html')
-    return redirect('/home')
+    return redirect('home')
 
 def profile_edit(request,id):
     if request.session.has_key('is_logged'):
